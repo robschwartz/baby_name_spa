@@ -9,11 +9,13 @@ class NamesContainer extends Component {
     this.state = {
       names: [],
       listId: props.listId,
-      inputValue: ''
+      inputValue: '',
+      nameError: ''
     }
   }
 
   getNames() {
+    console.log(this.state)
     axios.get(`/api/v1/baby_names?list_id=${this.state.listId}`)
       .then(response => {
         this.setState({ names: response.data.baby_names, listId: response.data.list.id })
@@ -26,13 +28,11 @@ class NamesContainer extends Component {
       axios.post('/api/v1/baby_names', { baby_name: { name: e.target.value, list_id: this.state.listId } })
         .then(response => {
           console.log(response.data)
-          const names = update(this.state.names, {
-            $splice: [[0, 0, response.data]]
-          })
-          console.log()
+          const data = response.data
           this.setState({
-            names: names,
-            inputValue: ''
+            names: data.baby_names,
+            inputValue: '',
+            nameError: data.error[0]
           })
         })
         .catch(error => console.log(error))
@@ -50,6 +50,9 @@ class NamesContainer extends Component {
   render() {
     return (
       <div>
+        <div className="nameError">
+          {this.state.nameError}
+        </div>
         <div className="inputContainer">
           <input className="nameInput"
             type="text"
