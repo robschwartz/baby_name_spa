@@ -17,7 +17,7 @@ class NamesContainer extends Component {
   // Get baby names from the API
   getNames() {
     console.log(this.state)
-    axios.get(`http://${baseUrl}/api/v1/baby_names?list_id=${this.state.listId}`)
+    axios.get(`https://${baseUrl}/api/v1/baby_names?list_id=${this.state.listId}`)
       .then(response => {
         this.setState({ names: response.data.baby_names, listId: response.data.list.id })
       })
