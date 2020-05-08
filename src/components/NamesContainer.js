@@ -5,12 +5,13 @@ class NamesContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      names: []
+      names: [],
+      listId: props.listId,
     }
   }
 
   getNames() {
-    axios.get('/api/v1/baby_names')
+    axios.get(`/api/v1/baby_names?list_id=${this.state.listId}`)
       .then(response => {
         this.setState({ names: response.data })
       })
