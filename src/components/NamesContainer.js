@@ -14,6 +14,7 @@ class NamesContainer extends Component {
     }
   }
 
+  // Get baby names from the API
   getNames() {
     console.log(this.state)
     axios.get(`/api/v1/baby_names?list_id=${this.state.listId}`)
@@ -23,6 +24,7 @@ class NamesContainer extends Component {
       .catch(error => console.log(error))
   }
 
+  // Create new baby name and post to API
   createName = (e) => {
     if (e.key === 'Enter') {
       axios.post('/api/v1/baby_names', { baby_name: { name: e.target.value, list_id: this.state.listId } })

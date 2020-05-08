@@ -4,6 +4,7 @@ import NamesContainer from './components/NamesContainer'
 
 class App extends Component {
 
+  // Generate Random id
   randomId = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -14,6 +15,7 @@ class App extends Component {
     return result;
   }
 
+  // Pull list_id from URL or create new one if not there
   getListId = (props) => {
     console.log(props)
     let listId = new URLSearchParams(props.location.search).get("list_id")
