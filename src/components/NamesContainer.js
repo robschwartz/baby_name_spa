@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import update from 'immutability-helper'
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 class NamesContainer extends Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class NamesContainer extends Component {
   // Get baby names from the API
   getNames() {
     console.log(this.state)
-    axios.get(`/api/v1/baby_names?list_id=${this.state.listId}`)
+    axios.get(`${baseUrl}/api/v1/baby_names?list_id=${this.state.listId}`)
       .then(response => {
         this.setState({ names: response.data.baby_names, listId: response.data.list.id })
       })
@@ -27,7 +27,7 @@ class NamesContainer extends Component {
   // Create new baby name and post to API
   createName = (e) => {
     if (e.key === 'Enter') {
-      axios.post('/api/v1/baby_names', { baby_name: { name: e.target.value, list_id: this.state.listId } })
+      axios.post(`${baseUrl}/api/v1/baby_names`, { baby_name: { name: e.target.value, list_id: this.state.listId } })
         .then(response => {
           console.log(response.data)
           const data = response.data
