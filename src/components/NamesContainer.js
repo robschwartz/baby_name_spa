@@ -16,7 +16,6 @@ class NamesContainer extends Component {
 
   // Get baby names from the API
   getNames() {
-    console.log(this.state)
     axios.get(`https://${baseUrl}/api/v1/baby_names?list_id=${this.state.listId}`)
       .then(response => {
         this.setState({ names: response.data.baby_names, listId: response.data.list.id })
@@ -29,7 +28,6 @@ class NamesContainer extends Component {
     if (e.key === 'Enter') {
       axios.post(`https://${baseUrl}/api/v1/baby_names`, { baby_name: { name: e.target.value, list_id: this.state.listId } })
         .then(response => {
-          console.log(response.data)
           const data = response.data
           this.setState({
             names: data.baby_names,
