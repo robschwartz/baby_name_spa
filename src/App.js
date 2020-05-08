@@ -18,11 +18,13 @@ class App extends Component {
     console.log(props)
     let listId = new URLSearchParams(props.location.search).get("list_id")
     if (listId) {
+      console.log("found list id", listId)
       return listId
     } else {
       listId = this.randomId(12)
       console.log(listId)
-      return props.history.push(`/?list_id=${listId}`)
+      props.history.push(`/?list_id=${listId}`)
+      return listId
     }
   }
 
