@@ -3,13 +3,38 @@ import './App.css';
 import NamesContainer from './components/NamesContainer'
 
 class App extends Component {
+
+  randomId = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const { length: charactersLength } = characters;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  getListId = (props) => {
+    console.log(props)
+    let listId = new URLSearchParams(props.location.search).get("list_id")
+    if (listId) {
+      return listId
+    } else {
+      listId = this.randomId(12)
+      console.log(listId)
+      return props.history.push(`/?list_id=${listId}`)
+    }
+  }
+
   render() {
     return (
       <div className="container">
         <div className="header">
           <h1>Baby Name List</h1>
         </div>
-        <NamesContainer />
+        <NamesContainer
+          listId={this.getListId(this.props)}
+        />
       </div>
     );
   }
